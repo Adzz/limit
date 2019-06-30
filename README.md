@@ -1,6 +1,6 @@
 # Limit
 
-This repo is an exploration of the ideas talked about in this very good post [http://jtfmumm.com/blog/2015/11/17/crdt-primer-1-defanging-order-theory/](http://jtfmumm.com/blog/2015/11/17/crdt-primer-1-defanging-order-theory/) read that first.
+This repo is an exploration of the ideas talked about in this very good post [http://jtfmumm.com/blog/2015/11/17/crdt-primer-1-defanging-order-theory/](http://jtfmumm.com/blog/2015/11/17/crdt-primer-1-defanging-order-theory/) read that. Below are just rambling notes of my own, plz ignore, but look at the code if you like.
 
 We are going to look at CRDTs, specifically CvRDTs - convergent conflict free replicated data types. What the hell are those and who the hell are you? What indeed. CvRDTs are a special kind of data type that allow us to be sure we can achieve consensus amongst a bunch of nodes, as long as the data we are converging on adheres to certain properties.
 
