@@ -30,12 +30,11 @@ Now if we think about that relation, and we map out the cities we can see a grap
 
       earth
       /   \
-
-Europe Asia
-/ \
-England China
-| \
-Slough London
+    Europe Asia
+      / \
+    England    China
+      |   \
+    Slough London
 
 With the graph mapped out, we can say that for the set of locations in the diagram, earth is the upper bound.
 We can take two locations in that and find the least upper bound LUB (wubbalubba dub dub).
@@ -52,7 +51,13 @@ We can define a function to find the join of two things in a set. If we did that
 2. Associativity - Any grouping you get the same answer - imagine joining 3 places
 3. Idempotence - You can do it again and again and again and again and again and again and again and again
 
-So now we can define a join semi-lattice. It is and order where there exists a join for any two elements in the set.
+So now we can define a join semi-lattice. It is an order where there exists a join for any two elements in the set of things being ordered.
+
+Now how does that relate to CRDTVs ?
+
+> Convergent CRDTs (or CvRDTs) are replicated data structures that, when merged, converge toward a value.
+
+That means, the data they encapsulate must be a join semi-lattice, and they must implement a merge or join function that can return us the LUB of two nodes it gets passed
 
 ## Installation
 
