@@ -169,9 +169,9 @@ TheSystem.join(node_2, node_3)
 TheSystem.join(node_3, node_2)
 TheSystem.join(node_3, node_1)
 
-# "Node 1's value is: #{TheSystem.value(node_1)}"
-# "Node 2's value is: #{TheSystem.value(node_2)}"
-# "Node 3's value is: #{TheSystem.value(node_3)}"
+"Node 1's value is: #{TheSystem.value(node_1)}"
+"Node 2's value is: #{TheSystem.value(node_2)}"
+"Node 3's value is: #{TheSystem.value(node_3)}"
 
 # =========================== As a map =============================
 
