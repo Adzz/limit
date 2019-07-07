@@ -38,6 +38,7 @@ defimpl CVRDT, for: VectorInts do
       node_states_1
       |> Enum.with_index()
       |> Enum.map(fn {x, index} ->
+        # What if the two nodes dont know about one another?
         max(x, Enum.at(node_states_2, index))
       end)
 

@@ -178,14 +178,17 @@ TheSystem.join(node_3, node_1)
 cvrdt_1 = %VectorInts{id: 0, node_states: %{0 => 0, 1 => 0, 2 => 0}}
 cvrdt_2 = %VectorInts{id: 1, node_states: %{0 => 0, 1 => 0, 2 => 0}}
 cvrdt_3 = %VectorInts{id: 2, node_states: %{0 => 0, 1 => 0, 2 => 0}}
+cvrdt_4 = %VectorInts{id: 3, node_states: %{3 => 0}}
 
 {:ok, node_1} = Agent.start_link(fn -> cvrdt_1 end)
 {:ok, node_2} = Agent.start_link(fn -> cvrdt_2 end)
 {:ok, node_3} = Agent.start_link(fn -> cvrdt_3 end)
+{:ok, node_4} = Agent.start_link(fn -> cvrdt_4 end)
 
 "Node 1's value is: #{TheSystem.value(node_1)}"
 "Node 2's value is: #{TheSystem.value(node_2)}"
 "Node 3's value is: #{TheSystem.value(node_3)}"
+"Node 4's value is: #{TheSystem.value(node_4)}"
 
 TheSystem.increment(node_1)
 TheSystem.increment(node_1)
@@ -225,4 +228,58 @@ TheSystem.join(node_3, node_1)
 "Node 1's value is: #{TheSystem.value(node_1)}"
 "Node 2's value is: #{TheSystem.value(node_2)}"
 "Node 3's value is: #{TheSystem.value(node_3)}"
+
+=================== Handle automatic adding of nodes to the system =============================
+
+cvrdt_1 = %Discovery{id: 0, node_states: %{0 => 0, 1 => 0, 2 => 0}}
+cvrdt_2 = %Discovery{id: 1, node_states: %{0 => 0, 1 => 0, 2 => 0}}
+cvrdt_3 = %Discovery{id: 2, node_states: %{0 => 0, 1 => 0, 2 => 0}}
+cvrdt_4 = %Discovery{id: 3, node_states: %{3 => 0}}
+
+{:ok, node_1} = Agent.start_link(fn -> cvrdt_1 end)
+{:ok, node_2} = Agent.start_link(fn -> cvrdt_2 end)
+{:ok, node_3} = Agent.start_link(fn -> cvrdt_3 end)
+{:ok, node_4} = Agent.start_link(fn -> cvrdt_4 end)
+
+TheSystem.increment(node_1)
+TheSystem.increment(node_1)
+
+"Node 1's value is: #{TheSystem.value(node_1)}"
+"Node 4's value is: #{TheSystem.value(node_4)}"
+
+TheSystem.join(node_1, node_4)
+"Node 1's value is: #{TheSystem.value(node_1)}"
+"Node 4's value is: #{TheSystem.value(node_4)}"
+TheSystem.join(node_4, node_1)
+"Node 1's value is: #{TheSystem.value(node_1)}"
+"Node 4's value is: #{TheSystem.value(node_4)}"
+
+TheSystem.increment(node_1)
+TheSystem.increment(node_1)
+# The value of the whole system should be 2
+TheSystem.increment(node_2)
+TheSystem.increment(node_2)
+TheSystem.increment(node_2)
+# The value of the whole system should be 5
+TheSystem.increment(node_3)
+TheSystem.increment(node_3)
+
+TheSystem.join(node_1, node_2)
+TheSystem.join(node_1, node_3)
+TheSystem.join(node_1, node_4)
+TheSystem.join(node_2, node_1)
+TheSystem.join(node_2, node_3)
+TheSystem.join(node_2, node_4)
+TheSystem.join(node_3, node_2)
+TheSystem.join(node_3, node_1)
+TheSystem.join(node_3, node_4)
+TheSystem.join(node_4, node_1)
+TheSystem.join(node_4, node_2)
+TheSystem.join(node_4, node_3)
+
+Agent.get(node_1, & &1)
+Agent.get(node_2, & &1)
+Agent.get(node_3, & &1)
+Agent.get(node_4, & &1)
+
 ```
