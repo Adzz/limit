@@ -2,6 +2,12 @@ defmodule TheSystem do
   def increment(node_1), do: CVRDT.increment(node_1)
   def value(node_1), do: CVRDT.value(node_1)
   def join(node_1, node_2), do: CVRDT.join(node_1, node_2)
+
+  def remove_node(node_to_remove) when is_pid(node_to_remove) do
+    Agent.update(node_to_remove, fn crdt = %{id: id, node_states: node_states} ->
+      %{crdt | node_states: %{node_states | id => {:removed, node_states[id]}}}
+    end)
+  end
 end
 
 defimpl CVRDT, for: PID do

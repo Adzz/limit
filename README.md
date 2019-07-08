@@ -282,4 +282,31 @@ Agent.get(node_2, & &1)
 Agent.get(node_3, & &1)
 Agent.get(node_4, & &1)
 
+======================================== Node Removal =================================
+# Sends a different down message for when a node removes. What can we do in that case?
+
+cvrdt_1 = %Removal{id: 0, node_states: [0, 0, 0]}
+cvrdt_2 = %Removal{id: 1, node_states: [0, 0, 0]}
+cvrdt_3 = %Removal{id: 2, node_states: [0, 0, 0]}
+
+{:ok, node_1} = Agent.start_link(fn -> cvrdt_1 end)
+{:ok, node_2} = Agent.start_link(fn -> cvrdt_2 end)
+{:ok, node_3} = Agent.start_link(fn -> cvrdt_3 end)
+
+TheSystem.increment(node_1)
+TheSystem.increment(node_1)
+TheSystem.increment(node_2)
+TheSystem.increment(node_2)
+TheSystem.increment(node_2)
+TheSystem.increment(node_3)
+TheSystem.increment(node_3)
+
+TheSystem.join(node_1, node_2)
+TheSystem.join(node_1, node_3)
+TheSystem.join(node_2, node_1)
+TheSystem.join(node_2, node_3)
+TheSystem.join(node_3, node_2)
+TheSystem.join(node_3, node_1)
+
+
 ```

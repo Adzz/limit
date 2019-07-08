@@ -1,17 +1,17 @@
-defmodule Discovery do
+defmodule Removal do
   defstruct [:id, :node_states]
 end
 
-defimpl CVRDT, for: Discovery do
+defimpl CVRDT, for: Removal do
   def increment(%{id: id, node_states: node_states}) do
-    %Discovery{id: id, node_states: %{node_states | id => node_states[id] + 1}}
+    %Removal{id: id, node_states: %{node_states | id => node_states[id] + 1}}
   end
 
-  def value(%Discovery{node_states: node_states}) do
+  def value(%Removal{node_states: node_states}) do
     Enum.reduce(node_states, 0, fn {_k, v}, acc -> acc + v end)
   end
 
-  def join(%Discovery{id: id, node_states: node_states_1}, %Discovery{
+  def join(%Removal{id: id, node_states: node_states_1}, %Removal{
         node_states: node_states_2
       }) do
     node_1_plus_node_2 =
@@ -41,7 +41,7 @@ defimpl CVRDT, for: Discovery do
         {_k, v}, acc -> acc + v
       end)
 
-    %Discovery{
+    %Removal{
       id: id,
       # Could we cache somehow the state so far, so we can reduce the amount
       # of data needed if a node is removed?
