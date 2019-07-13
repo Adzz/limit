@@ -285,9 +285,9 @@ Agent.get(node_4, & &1)
 ======================================== Node Removal =================================
 # Sends a different down message for when a node removes. What can we do in that case?
 
-cvrdt_1 = %Removal{id: 0, node_states: [0, 0, 0]}
-cvrdt_2 = %Removal{id: 1, node_states: [0, 0, 0]}
-cvrdt_3 = %Removal{id: 2, node_states: [0, 0, 0]}
+cvrdt_1 = %Discovery{id: 0, node_states: %{0 => 0, 1 => 0, 2 => 0}}
+cvrdt_2 = %Discovery{id: 1, node_states: %{0 => 0, 1 => 0, 2 => 0}}
+cvrdt_3 = %Discovery{id: 2, node_states: %{0 => 0, 1 => 0, 2 => 0}}
 
 {:ok, node_1} = Agent.start_link(fn -> cvrdt_1 end)
 {:ok, node_2} = Agent.start_link(fn -> cvrdt_2 end)
@@ -308,5 +308,7 @@ TheSystem.join(node_2, node_3)
 TheSystem.join(node_3, node_2)
 TheSystem.join(node_3, node_1)
 
+# Now node 3 wants to remove
+TheSystem.mark_for_removal(node_3)
 
 ```
