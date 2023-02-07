@@ -1,5 +1,27 @@
 # Limit
 
+## Types of CRDTs
+
+Broadly at the moment there are at least 2 broad kinds of CRDTs each with their own characteristics.
+
+1. State Based
+2. Operation Based
+
+### State CRDTs
+
+ship the whole state to each node. Predefine merge function for that state. Simpler in some way, more data being sent - limitations.
+
+### Op based CRDTs
+
+You send an operation to each node to update its own state.
+
+
+State based CRDTs also have delta CRDTs - which work the same way as state based CRDTs but by sending deltas of the state instead of the entire state. This turns what could be large messages into more manageable updates, permitting what could otherwise be impossible.
+
+
+This repo right now just talks about State based CRDTs.
+
+
 This repo is an exploration of the ideas talked about in this very good post [http://jtfmumm.com/blog/2015/11/17/crdt-primer-1-defanging-order-theory/](http://jtfmumm.com/blog/2015/11/17/crdt-primer-1-defanging-order-theory/) read that, and [part two](http://jtfmumm.com/blog/2015/11/24/crdt-primer-2-convergent-crdts/) first.
 
 The is an exploration of various (not good) implementations of a CvRDTs. The best implementation is that found in the `VectorInts` Module. The aim of the system in this repo is to implement a (conceptually at least) distributed grow only counter. This could be extended to be a very limited distributed rate limiter. Once you've read the blog post step through below:
